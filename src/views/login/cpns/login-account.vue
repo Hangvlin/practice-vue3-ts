@@ -5,7 +5,7 @@
         <el-input v-model="account.name" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="account.password" />
+        <el-input v-model="account.password" show-password />
       </el-form-item>
     </el-form>
   </div>
@@ -13,24 +13,36 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
+import { useStore } from 'vuex'
 import { ElForm } from 'element-plus'
+import localCatch from '@/utiles/catch'
 
 import { rules } from '../config/account-config'
 
 export default defineComponent({
   setup() {
+    const store = useStore()
+
     const account = reactive({
-      name: '',
-      password: ''
+      name: localCatch.getCatch('name') ?? '',
+      password: localCatch.getCatch('password') ?? ''
     })
 
     const formRef = ref<InstanceType<typeof ElForm>>()
 
-    const loginAction = () => {
+    const loginAction = (isKeepPassword: boolean) => {
       formRef.value?.validate((valid) => {
         if (valid) {
-          console.log('真正执行登录逻辑')
+          if (isKeepPassword) {
+            localCatch.setCatch('name', account.name)
+            localCatch.setCatch('password', account.password)
+          } else {
+            localCatch.deleteCatch('name')
+            localCatch.deleteCatch('password')
+          }
         }
+
+        store.dispatch('login/accountLoginAction', { ...account })
       })
     }
 
