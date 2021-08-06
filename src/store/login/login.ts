@@ -65,9 +65,9 @@ const loginModule: Module<ILoginState, IRootState> = {
       if (userInfo) {
         commit('changeUserInfo', userInfo)
       }
-      const userMenus = localCatch.getCatch('userMenus')
+      const userMenus = localCatch.getCatch('userMenu')
       if (userMenus) {
-        commit('changeUserMeuns', userMenus)
+        commit('changeUserMenu', userMenus)
       }
     }
   }

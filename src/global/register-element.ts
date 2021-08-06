@@ -1,13 +1,20 @@
 import { App } from 'vue'
 import 'element-plus/lib/theme-chalk/base.css'
 import {
+  ElAside,
   ElButton,
   ElCheckbox,
+  ElContainer,
   ElForm,
   ElFormItem,
+  ElHeader,
   ElInput,
   ElLink,
+  ElMain,
+  ElMenu,
+  ElMenuItem,
   ElRadio,
+  ElSubmenu,
   ElTabPane,
   ElTabs
 } from 'element-plus'
@@ -21,7 +28,14 @@ const components = [
   ElTabs,
   ElTabPane,
   ElCheckbox,
-  ElLink
+  ElLink,
+  ElContainer,
+  ElAside,
+  ElHeader,
+  ElMain,
+  ElMenu,
+  ElSubmenu,
+  ElMenuItem
 ]
 
 export default function (app: App): void {
