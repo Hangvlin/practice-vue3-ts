@@ -4,13 +4,10 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
   //1. 加载所有的路由
   const allRoutes: RouteRecordRaw[] = []
-  // routeFiles.keys() 返回一个存放所有文件路径的数组
   const routeFiles = require.context('../router/main', true, /\.ts/)
-  console.log(routeFiles.keys())
   routeFiles.keys().forEach((key) => {
     const route = require('../router/main' + key.split('.')[1])
-    allRoutes.push(route)
-    console.log(allRoutes)
+    allRoutes.push(route.default)
   })
 
   const _recurseGetRoute = (menus: any[]) => {
@@ -19,7 +16,7 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
         const route = allRoutes.find((route) => route.path === menu.url)
         if (route) routes.push(route)
       } else {
-        _recurseGetRoute(menu)
+        _recurseGetRoute(menu.children)
       }
     }
   }
