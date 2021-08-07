@@ -15,6 +15,11 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/main',
     component: () => import('@/views/main/main.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notfound',
+    component: () => import('@/views/not-found/not-found.vue')
   }
 ]
 
